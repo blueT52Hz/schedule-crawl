@@ -1,9 +1,12 @@
 name: Puppeteer Prisma Scraper
 
 on:
+  push:
+    branches:
+      - main # Kích hoạt khi có push vào nhánh main
   schedule:
-    - cron: "*/30 * * * *" # Chạy mỗi 30 phút
-  workflow_dispatch: # Cho phép chạy tay từ GitHub UI
+    - cron: "0,30 * * * *" # Chạy vào phút 0 và 30 mỗi giờ (0h00, 0h30, 1h00, 1h30,...)
+  workflow_dispatch: # Cho phép chạy thủ công từ GitHub UI
   workflow_call: # Cho phép workflow khác gọi
     secrets:
       DATABASE_URL:
@@ -18,7 +21,7 @@ jobs:
       crawler_success: ${{ steps.set-result.outputs.success }}
     defaults:
       run:
-        working-directory: ./ # Thư mục gốc (có thể đổi nếu source bạn nằm thư mục con)
+        working-directory: ./ # Thư mục gốc
 
     steps:
       - uses: actions/checkout@v4
