@@ -1,0 +1,44 @@
+{
+  "name": "schedule-crawl",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsx src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blueT52Hz/schedule-crawl.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blueT52Hz/schedule-crawl/issues"
+  },
+  "homepage": "https://github.com/blueT52Hz/schedule-crawl#readme",
+  "dependencies": {
+    "@prisma/client": "^6.10.1",
+    "dotenv": "^16.5.0",
+    "jsdom": "^26.1.0",
+    "lodash": "^4.17.21",
+    "puppeteer": "^24.10.2",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "winston": "^3.17.0",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^21.1.7",
+    "@types/lodash": "^4.17.18",
+    "@types/node": "^24.0.3",
+    "@types/puppeteer": "^5.4.7",
+    "eslint": "^9.29.0",
+    "prettier": "^3.5.3",
+    "prisma": "^6.10.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}

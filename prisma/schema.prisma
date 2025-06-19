@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Region {
+  region_id   String   @id @default(uuid())
+  region_name String   @unique @db.VarChar(255)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  cities      City[]
+
+  @@map("regions")
+}
+
+model City {
+  city_id           String           @id @default(uuid())
+  city_name         String           @unique @db.VarChar(255)
+  slug              String           @unique @db.VarChar(255)
+  region_id         String
+  region            Region           @relation(fields: [region_id], references: [region_id])
+  created_at        DateTime         @default(now())
+  updated_at        DateTime         @updatedAt
+  weather_histories WeatherHistory[]
+
+  @@map("cities")
+}
+
+model WeatherHistory {
+  weather_id      String      @id @default(uuid())
+  city_id         String
+  city            City        @relation(fields: [city_id], references: [city_id])
+  temp_current    Float
+  temp_min        Float
+  temp_max        Float
+  temp_feels_like Float
+  description     String
+  humidity        Int
+  visibility      Int
+  wind_speed      Float
+  rain_amount     Float
+  uv              Float
+  created_at      DateTime    @default(now())
+  updated_at      DateTime    @updatedAt
+  air_quality     AirQuality?
+
+  @@map("weather_histories")
+}
+
+model AirQuality {
+  aqi_id     String         @id @default(uuid())
+  weather_id String         @unique
+  weather    WeatherHistory @relation(fields: [weather_id], references: [weather_id])
+  quality    String
+  co         Float
+  no         Float
+  no2        Float
+  o3         Float
+  so2        Float
+  pm2_5      Float
+  pm10       Float
+  nh3        Float
+  created_at DateTime       @default(now())
+  updated_at DateTime       @updatedAt
+
+  @@map("air_qualities")
+}
